@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model WechatAccount {
+  openid     String   @id
+  sessionKey String
+  unionId    String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  appUser    AppUser?
+}
+
+model AppUser {
+  uid            Int     @id @default(autoincrement())
+  mobile         String? @unique
+  mobileVerified Boolean @default(false)
+  email          String? @unique
+  emailVerified  Boolean @default(false)
+  bcryptPassword String?
+  name           String?
+  wxOpenid       String? @unique
+
+  wechat WechatAccount? @relation(fields: [wxOpenid], references: [openid])
+
+  @@index([wxOpenid])
+}
+
+model VerificationSms {
+  id         Int      @id @default(autoincrement())
+  mobile     String
+  templateId String
+  code       String
+  createdAt  DateTime @default(now())
+  status     Int      @default(0)
+}
+
+model VerificationEmail {
+  id         Int      @id @default(autoincrement())
+  email      String
+  templateId String
+  code       String
+  messageId  String   @default("") // email message id
+  createdAt  DateTime @default(now())
+  status     Int      @default(0)
+}
+
+model Todo {
+  id        Int      @id @default(autoincrement())
+  title     String
+  uid       Int
+  completed Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([uid])
+}

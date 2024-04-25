@@ -1,0 +1,57 @@
+app:
+  port: 8080
+  logger: true
+
+db:
+  url: 'postgresql://dbuser:12345678@10.25.30.100:5432/yxx_starter?schema=public'
+
+redis:
+  url: 'redis://10.25.30.100:6379'
+
+wechat:
+  appid: 'wx123456789'
+  secret: '1234567890abcdef1234567890abcdef'
+
+sms:
+  vendor: 'aliyun'
+  accessKey: '123456789'
+  accessSecret: '123'
+  endpoint: 'dysmsapi.aliyuncs.com'
+  region: 'ap-guangzhou'
+  templates:
+    - name: 'register'
+      sign: '栗子'
+      templateCode: 'SMS_123456789'
+
+session:
+  secret: 'LugpGRvdBJuwy3TQDM2D'
+
+file:
+  vendor: 's3'
+  accessKey: ''
+  accessSecret: ''
+  internalEndpoint: ''
+  endpoint: ''
+
+email:
+  vendor: 'smtp'
+  accessKey: ''
+  accessSecret: ''
+  host: 'smtp.exmail.qq.com'
+  port: 465
+  secure: true
+  user: ''
+  pass: ''
+
+captcha:
+  vendor: 'aliyun'
+  accessKey: ''
+  accessSecret: ''
+  endpoint: 'captcha.cn-shanghai.aliyuncs.com'
+  sceneId: ''
+
+jeepay:
+  mchNo: 'M1694786242'
+  appId: '650462c2e4b03b50602a7400'
+  key: 'iqjh5mX3vix9PXFhAYwz1HWzjyyVHiYrZEfhzhsjbe8PWOEZEY9JMuBxSp1j32T8NAdt8IAnEjYxy8UINc4eY6eoQg5Im2UrsGGNaMZKSYU7yTOgPBPMQP8e0kyBcOkg'
+  endpoint: 'http://10.25.30.106:9226'
