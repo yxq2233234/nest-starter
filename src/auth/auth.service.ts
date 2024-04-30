@@ -1,10 +1,10 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, OnModuleDestroy } from '@nestjs/common';
 import { AppSession } from './types';
 import { RedisClientType } from 'redis';
 import { REDIS_AUTH } from '../redis/types';
 
 @Injectable()
-export class AuthService {
+export class AuthService implements OnModuleDestroy {
   constructor(@Inject(REDIS_AUTH) private readonly redis: RedisClientType) {}
 
   async getSession(apiKey: string): Promise<AppSession> {
@@ -26,5 +26,9 @@ export class AuthService {
     await this.redis.set(`session:token:${param.token}`, param.userId, {
       EX: ttl,
     });
+  }
+
+  async onModuleDestroy() {
+    return this.redis.quit();
   }
 }
