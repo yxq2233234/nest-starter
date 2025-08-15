@@ -26,4 +26,6 @@ async function bootstrap() {
   await app.listen(config.app.port);
 }
 
-bootstrap();
+bootstrap().catch((err) => {
+  console.log(err);
+});

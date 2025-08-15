@@ -12,13 +12,13 @@ export class AuthService implements OnModuleDestroy {
     if (!uid) return null;
     const data = await this.redis.get(`session:sess:${uid}`);
     if (!data) return null;
-    return JSON.parse(data);
+    return JSON.parse(<string>data);
   }
 
   async replaceSession(param: AppSession, ttl: number) {
     const prev = await this.redis.get(`session:sess:${param.userId}`);
     if (prev) {
-      await this.redis.del(`session:token:${JSON.parse(prev).token}`);
+      await this.redis.del(`session:token:${JSON.parse(<string>prev).token}`);
     }
     await this.redis.set(`session:sess:${param.userId}`, JSON.stringify(param), {
       EX: ttl,
