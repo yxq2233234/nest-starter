@@ -3,10 +3,10 @@ app:
   logger: true
 
 db:
-  url: 'postgresql://dbuser:12345678@10.25.30.100:5432/yxx_starter?schema=public'
+  url: 'postgresql://dbuser:12345678@127.0.0.1:5432/yxx_starter?schema=public'
 
 redis:
-  url: 'redis://10.25.30.100:6379'
+  url: 'redis://127.0.0.1:6379'
 
 wechat:
   appid: 'wx123456789'
